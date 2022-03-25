@@ -209,6 +209,11 @@ public final class BrowserPanel extends SimpleToolWindowPanel implements Persist
         return getAllJobs().stream().filter(job -> job.getNameToRenderSingleJob().equals(name)).findFirst();
     }
 
+    @NotNull
+    public Optional<Job> getJobByNameAndBranch(String name) {
+        return getAllJobs().stream().filter(job -> job.getFullName().equals(name)).findFirst();
+    }
+
     public void setSortedByStatus(boolean sortedByBuildStatus) {
         this.sortedByBuildStatus = sortedByBuildStatus;
         jobTree.keepLastState(() -> jobTree.sortJobs(getCurrentSorting()));

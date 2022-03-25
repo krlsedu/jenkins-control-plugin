@@ -59,6 +59,7 @@
         <aboutPopupDescriptionProvider implementation="org.codinjutsu.tools.jenkins.view.JenkinsAbout" />
         <notificationGroup displayType="NONE" id="Jenkins Rss" />
         <notificationGroup displayType="TOOL_WINDOW" id="Jenkins Notification" toolWindowId="Jenkins"/>
+        <pushDialogActionsProvider implementation="org.codinjutsu.tools.jenkins.PushAction"/>
     </extensions>
 
     <actions>

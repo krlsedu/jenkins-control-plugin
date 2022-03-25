@@ -16,6 +16,8 @@
 
 package org.codinjutsu.tools.jenkins.view.action;
 
+import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.UpdateInBackground;
@@ -62,10 +64,19 @@ public class RunBuildAction extends AnAction implements DumbAware, UpdateInBackg
     }
 
     private void actionPerformed(@NotNull Project project) {
+        actionPerformed(project, false, null);
+    }
+
+    public void actionPerformed(@NotNull Project project, boolean byProject, String branch) {
         final BrowserPanel browserPanel = BrowserPanel.getInstance(project);
         try {
-            Optional.ofNullable(browserPanel.getSelectedJob())
-                    .ifPresent(job -> queueRunBuild(project, browserPanel, job));
+            if (byProject) {
+                browserPanel.getJobByNameAndBranch(project.getName() + "/" + branch)
+                        .ifPresent(job -> queueRunBuild(project, browserPanel, job));
+            } else {
+                Optional.ofNullable(browserPanel.getSelectedJob())
+                        .ifPresent(job -> queueRunBuild(project, browserPanel, job));
+            }
         } catch (Exception ex) {
             final String message = ex.getMessage() == null ? "Unknown error" : ex.getMessage();
             LOG.error(message, ex);
@@ -104,6 +115,12 @@ public class RunBuildAction extends AnAction implements DumbAware, UpdateInBackg
                             requestManager.runBuild(job, JenkinsAppSettings.getSafeInstance(project),
                                     Collections.emptyMap());
                             notifyOnGoingMessage(browserPanel, job);
+
+                            NotificationGroupManager.getInstance().getNotificationGroup("Execution")
+                                    .createNotification(HtmlUtil.createHtmlLinkMessage(
+                                            job.getNameToRenderSingleJob() + " build is on going",
+                                            job.getUrl()), NotificationType.INFORMATION)
+                                    .notify(project);
                         }
                     }
 
