@@ -58,11 +58,12 @@ public class JenkinsAppSettings implements PersistentStateComponent<JenkinsAppSe
     }
 
     public String getServerUrl() {
-        return myState.getServerUrl();
+        return ConfigFile.get("serverUrl");
     }
 
     public void setServerUrl(String serverUrl) {
         myState.setServerUrl(serverUrl);
+        ConfigFile.set("serverUrl", serverUrl);
     }
 
     public boolean isServerUrlSet() {
@@ -71,35 +72,39 @@ public class JenkinsAppSettings implements PersistentStateComponent<JenkinsAppSe
     }
 
     public int getBuildDelay() {
-        return myState.getDelay();
+        return ConfigFile.getInteger("delay");
     }
 
     public void setDelay(int delay) {
         myState.setDelay(delay);
+        ConfigFile.set("delay", delay);
     }
 
     public int getJobRefreshPeriod() {
-        return myState.getJobRefreshPeriod();
+        return ConfigFile.getInteger("jobRefreshPeriod");
     }
 
     public void setJobRefreshPeriod(int jobRefreshPeriod) {
         myState.setJobRefreshPeriod(jobRefreshPeriod);
+        ConfigFile.set("jobRefreshPeriod", jobRefreshPeriod);
     }
 
     public int getRssRefreshPeriod() {
-        return myState.getRssRefreshPeriod();
+        return ConfigFile.getInteger("rssRefreshPeriod");
     }
 
     public void setRssRefreshPeriod(int rssRefreshPeriod) {
         myState.setRssRefreshPeriod(rssRefreshPeriod);
+        ConfigFile.set("rssRefreshPeriod", rssRefreshPeriod);
     }
 
     public String getSuffix() {
-        return myState.getSuffix();
+        return ConfigFile.getString("suffix");
     }
 
     public void setSuffix(String suffix) {
         myState.setSuffix(suffix);
+        ConfigFile.set("suffix", suffix);
     }
 
     private RssSettings getRssSettings() {
@@ -120,14 +125,17 @@ public class JenkinsAppSettings implements PersistentStateComponent<JenkinsAppSe
 
     public void setIgnoreSuccessOrStable(boolean ignoreSucessOrStable) {
         getRssSettings().setDisplaySuccessOrStable(ignoreSucessOrStable);
+        ConfigFile.set("ignoreSucessOrStable", ignoreSucessOrStable);
     }
 
     public void setDisplayUnstableOrFail(boolean displayUnstableOrFail) {
         getRssSettings().setDisplayUnstableOrFail(displayUnstableOrFail);
+        ConfigFile.set("displayUnstableOrFail", displayUnstableOrFail);
     }
 
     public void setDisplayAborted(boolean displayAborted) {
         getRssSettings().setDisplayAborted(displayAborted);
+        ConfigFile.set("displayAborted", displayAborted);
     }
 
     public boolean shouldDisplayOnLogEvent(Build build) {
@@ -146,35 +154,39 @@ public class JenkinsAppSettings implements PersistentStateComponent<JenkinsAppSe
     }
 
     public int getNumBuildRetries() {
-        return myState.getNumBuildRetries();
+        return ConfigFile.getInteger("numBuildRetries");
     }
 
     public void setNumBuildRetries(int numBuildRetries) {
         myState.setNumBuildRetries(numBuildRetries);
+        ConfigFile.set("numBuildRetries", numBuildRetries);
     }
 
     public boolean isUseGreenColor() {
-        return myState.isUseGreenColor();
+        return ConfigFile.getBoolean("useGreenColor");
     }
 
     public void setUseGreenColor(boolean useGreenColor) {
         myState.setUseGreenColor(useGreenColor);
+        ConfigFile.set("useGreenColor", useGreenColor);
     }
 
     public boolean isShowAllInStatusbar() {
-        return myState.isShowAllInStatusbar();
+        return ConfigFile.getBoolean("showAllInStatusbar");
     }
 
     public void setShowAllInStatusbar(boolean showAllInStatusbar) {
         myState.setShowAllInStatusbar(showAllInStatusbar);
+        ConfigFile.set("showAllInStatusbar", showAllInStatusbar);
     }
 
     public boolean isAutoLoadBuilds() {
-        return myState.isAutoLoadBuilds();
+        return ConfigFile.getBoolean("autoLoadBuilds");
     }
 
     public void setAutoLoadBuilds(boolean autoLoadBuilds) {
         myState.setAutoLoadBuilds(autoLoadBuilds);
+        ConfigFile.set("autoLoadBuilds", autoLoadBuilds);
     }
 
     @NotNull
@@ -184,14 +196,16 @@ public class JenkinsAppSettings implements PersistentStateComponent<JenkinsAppSe
 
     public void setDoubleClickAction(@NotNull DoubleClickAction doubleClickAction) {
         myState.setDoubleClickAction(doubleClickAction);
+        ConfigFile.set("doubleClickAction", doubleClickAction);
     }
 
     public boolean isShowLogIfTriggerBuild() {
-        return myState.isShowLogIfTriggerBuild();
+        return ConfigFile.getBoolean("showLogIfTriggerBuild");
     }
 
     public void setShowLogIfTriggerBuild(boolean showLogIfTriggerBuild) {
         myState.setShowLogIfTriggerBuild(showLogIfTriggerBuild);
+        ConfigFile.set("showLogIfTriggerBuild", showLogIfTriggerBuild);
     }
 
     @Data

@@ -65,27 +65,30 @@ public class JenkinsSettings implements PersistentStateComponent<JenkinsSettings
     }
 
     public String getUsername() {
-        return myState.getUsername();
+        return ConfigFile.get("username");
     }
 
     public void setUsername(String username) {
+        ConfigFile.set("username", username);
         myState.setUsername(username);
     }
 
     public String getCrumbData() {
-        return myState.getCrumbData();
+        return ConfigFile.get("crumbData");
     }
 
     public void setCrumbData(String crumbData) {
         myState.setCrumbData(crumbData);
+        ConfigFile.set("crumbData", crumbData);
     }
 
     public String getPassword() {
         String password = PasswordSafe.getInstance().getPassword(getPasswordCredentialAttributes());
-        return StringUtils.defaultIfEmpty(password, "");
+        return StringUtils.defaultIfEmpty(ConfigFile.get("password"), "");
     }
 
     public void setPassword(String password) {
+        ConfigFile.set("password", password);
         PasswordSafe.getInstance().setPassword(getPasswordCredentialAttributes(), StringUtils.isNotBlank(password) ? password : "");
     }
 

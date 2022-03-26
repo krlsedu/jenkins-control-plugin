@@ -211,7 +211,7 @@ public final class BrowserPanel extends SimpleToolWindowPanel implements Persist
 
     @NotNull
     public Optional<Job> getJobByNameAndBranch(String name) {
-        return getAllJobs().stream().filter(job -> job.getFullName().equals(name)).findFirst();
+        return getAllJobs().stream().filter(job -> job.getFullName().equalsIgnoreCase(name)).findFirst();
     }
 
     public void setSortedByStatus(boolean sortedByBuildStatus) {
